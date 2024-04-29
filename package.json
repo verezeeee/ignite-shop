@@ -7,9 +7,11 @@
   },
   "dependencies": {
     "@stitches/react": "1.2.8",
+    "keen-slider": "^6.8.6",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "stripe": "^15.4.0"
   },
   "devDependencies": {
     "@types/node": "^18.0.6",
