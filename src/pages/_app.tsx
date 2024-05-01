@@ -1,8 +1,9 @@
 import { AppProps } from "next/app";
 import { globalStyles } from "../styles/global";
-import { Container, Header, Image } from "../styles/pages/app";
+import { Container, Header, HeaderContainer, Image } from "../styles/pages/app";
 
 import shopSvg from "../../public/shop.svg";
+import Link from "next/link";
 globalStyles();
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -10,7 +11,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Container>
         <Header>
-          <Image src={shopSvg.src} alt="logo" />
+          <Link href="/" passHref>
+            <HeaderContainer>
+              <Image src={shopSvg.src} alt="Shop" />
+              <h1>Ignite Shop</h1>
+            </HeaderContainer>
+          </Link>
         </Header>
         <Component {...pageProps} />
       </Container>

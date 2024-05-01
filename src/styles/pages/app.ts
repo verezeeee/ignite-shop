@@ -20,3 +20,21 @@ export const Image = styled("img", {
   height: 100,
   filter: "invert(1)",
 });
+
+export const HeaderContainer = styled("div", {
+  display: "flex",
+  alignItems: "center",
+  gap: "1rem",
+  width: "min-content",
+  cursor: "pointer",
+  transition: "filter 0.2s",
+  textDecoration: "none",
+  h1: {
+    fontSize: "$2xl",
+    color: "$gray300",
+  },
+
+  "&:hover": {
+    filter: "brightness(0.8)",
+  },
+});
