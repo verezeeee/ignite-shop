@@ -9,6 +9,7 @@ import { stripe } from "../../lib/stripe";
 import Stripe from "stripe";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 interface ProductProps {
   product: {
@@ -17,11 +18,25 @@ interface ProductProps {
     imageUrl: string;
     price: string;
     description: string;
+    defaultPriceId: string;
   };
 }
 
 export default function Product({ product }: ProductProps) {
   const { isFallback } = useRouter();
+
+  const handleBuyProduct = async () => {
+    console.log(product.defaultPriceId);
+    try {
+      const response = await axios.post("/api/checkout", {
+        priceId: product.defaultPriceId,
+      });
+
+      const { checkoutUrl } = response.data;
+
+      window.location.href = checkoutUrl;
+    } catch (error) {}
+  };
 
   if (isFallback) {
     return (
@@ -41,6 +56,8 @@ export default function Product({ product }: ProductProps) {
         <h1>{product.name}</h1>
         <span>{product.price}</span>
         <p>{product.description}</p>
+
+        <button onClick={handleBuyProduct}>Comprar agora</button>
       </ProductDetails>
     </ProductContainer>
   );
@@ -87,6 +104,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         imageUrl: productDetails.images[0],
         price: priceMask(price.unit_amount / 100),
         description: productDetails.description,
+        defaultPriceId: price.id,
       },
     },
     revalidate: 60 * 60 * 1, // 1 hours
