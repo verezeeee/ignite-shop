@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { HomeContainer, Product } from "../styles/pages/home";
+import Head from "next/head";
 import Link from "next/link";
 
 import { useKeenSlider } from "keen-slider/react";
@@ -25,32 +26,37 @@ export default function Home({ products }: HomeProps) {
   });
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map((product) => {
-        return (
-          <Link
-            prefetch={false}
-            key={product.id}
-            href={`/product/${product.id}`}
-          >
-            <Product className="keen-slider__slide">
-              <Image
-                placeholder="blur"
-                blurDataURL="data:image/gif;base64,..."
-                src={product.imageUrl}
-                width={380}
-                height={400}
-                alt=""
-              />
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </Product>
-          </Link>
-        );
-      })}
-    </HomeContainer>
+    <>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => {
+          return (
+            <Link
+              prefetch={false}
+              key={product.id}
+              href={`/product/${product.id}`}
+            >
+              <Product className="keen-slider__slide">
+                <Image
+                  placeholder="blur"
+                  blurDataURL="data:image/gif;base64,..."
+                  src={product.imageUrl}
+                  width={380}
+                  height={400}
+                  alt=""
+                />
+                <footer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </footer>
+              </Product>
+            </Link>
+          );
+        })}
+      </HomeContainer>
+    </>
   );
 }
 
